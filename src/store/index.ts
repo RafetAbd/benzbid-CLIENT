@@ -3,9 +3,10 @@ import { composeWithDevTools } from "redux-devtools-extension"
 import { createLogger, logger } from "redux-logger"
 import thunkMiddleware from "redux-thunk"
 import { configureStore } from "@reduxjs/toolkit"
+import { authReducer } from "./auth"
 
 const reducer = combineReducers({
-  // reducers go here
+    authReducer,
 })
 
 const store = configureStore({
