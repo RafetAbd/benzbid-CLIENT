@@ -2,7 +2,7 @@ import React from "react";
 import { Routes ,Route } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from "./store";
 import Home from "./components/Home";
-import Auth from "./components/Auth";
+import { Login, Signup } from "./components/Auth";
 
 const AllRoutes: React.FC = () => {
 
@@ -18,8 +18,8 @@ const AllRoutes: React.FC = () => {
                 </Routes>
             ) : (
                 <Routes>
-                    <Route path="/login" caseSensitive={false} element={<Auth />} />
-                    <Route path="/signup" caseSensitive={false} element={<Auth />} />
+                    <Route path="/login" caseSensitive={false} element={<Login />} />
+                    <Route path="/signup" caseSensitive={false} element={<Signup />} />
                     <Route path="/" element={<Home />} />
                 </Routes>
             )    
