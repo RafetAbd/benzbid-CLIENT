@@ -2,11 +2,13 @@ import React from "react";
 import { Routes ,Route } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from "./store";
 import Home from "./components/Home";
-import { Login, Signup } from "./components/Auth";
+import Login from "./components/Login";
+import Signup from "./components/Signup";
+import { RootState } from "./store";
 
 const AllRoutes: React.FC = () => {
 
-    const isLoggedIn = useAppSelector((state) => {
+    const isLoggedIn = useAppSelector((state: RootState) => {
         return !!state.authReducer.id
     })
 
