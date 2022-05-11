@@ -3,6 +3,7 @@ import history from '../history'
 
 // Action Types
 const SET_AUTH = 'SET_AUTH';
+const SET_ERROR = 'SET_ERROR';
 const TOKEN = 'token'
 
 // type
@@ -11,28 +12,39 @@ type SetAuthAction = {
     auth: {}
 }
 
+type SetErr = {
+    type: typeof SET_ERROR,
+    error: {}
+}
+
 // Action Creators
 const setAuth = (auth: {}): SetAuthAction => ({
     type: SET_AUTH,
     auth
 });
 
+const setError = (error: {}): SetErr => ({
+    type: SET_ERROR,
+    error
+});
+
+
 // Thunk Creators
 export const authenticate = (email: string, password: string, method: String) => async(dispatch: any) => {
     try {
-        const {data : token} = await axios.post(`/auth/${method}`, {email, password, method});
-        window.localStorage.setItem( TOKEN, token);
+        const res = await axios.post(`http://localhost:1337/auth/${method}`, {email, password});
+        window.localStorage.setItem( TOKEN, res.data.token);
         dispatch(userInfo());
         history.push('/');
-    } catch (err) {
-        console.error(err);
+    } catch (authError) {
+        return dispatch(setError({ error: authError }))
     }    
 }
 
 export const userInfo = () => async(dispatch: any) => {
     const token = window.localStorage.getItem(TOKEN);
     if ( token ) {
-        const {data: user } = await axios.get('/auth/me', {
+        const {data: user } = await axios.get('http://localhost:1337/auth/me', {
             headers: { 
                 Authorization: token 
             }
@@ -47,10 +59,21 @@ export const logout = () => async(dispatch: any) => {
     history.push('/login');
 }
 
-export const authReducer = (state = {}, action: any) => {
+export const clearError = () => (dispatch: any) => {
+    dispatch(setError({}));
+}
+
+const initialState = {
+    auth: {},
+    error: {}
+}
+
+export const authReducer = (state = initialState , action: any) => {
     switch (action.type) {
         case SET_AUTH:
-            return action.auth;
+            return { ...state, auth: action.auth };
+        case SET_ERROR:
+            return { ...state, error: action.error };
         default:
             return state;
     }

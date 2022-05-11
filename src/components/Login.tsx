@@ -1,13 +1,14 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { authenticate } from "../store/auth";
+import { authenticate, clearError } from "../store/auth";
 import { useAppDispatch, useAppSelector, RootState, AppDispatch } from "../store";
 
 const Login: React.FC = () => {
 
     const dispatch = useAppDispatch();
-    const isAuthenticated = useAppSelector((state: RootState) => state.authReducer.email);
+    const isAuthenticated = useAppSelector((state: RootState) => state.authReducer.auth.email);
+    const err = useAppSelector((state: RootState) => state.authReducer.error.error);
     const [email, setEmail] = React.useState("");
     const [password, setPassword] = React.useState("");
     const [error, setError] = React.useState("");
@@ -21,11 +22,17 @@ const Login: React.FC = () => {
         await dispatch(authenticate(email, password, "login"));
     }
 
+    const clearErr = async() => {
+        console.log("clearing error");
+        await dispatch(clearError());
+    }
+
     return (
         
          <div className="container">
             <h1>Login</h1>
             {error && <p className="error">{error}</p>}
+            {err.name && <p className="error">{err.response.data.message}</p>}
             {isAuthenticated && <p>You are logged in!</p>}
             <form onSubmit={handleSubmit}>
                  <label>Email</label>
@@ -34,7 +41,7 @@ const Login: React.FC = () => {
                  <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
                  <button type="submit">Login</button>
             </form>
-            <p>Don't have an account? <Link to="/signup">Sign up</Link></p>
+            <p>Don't have an account? <Link to="/signup" onClick={() =>clearErr()}>Sign up</Link></p>
          </div>
     )
 }

@@ -9,7 +9,7 @@ import { RootState } from "./store";
 const AllRoutes: React.FC = () => {
 
     const isLoggedIn = useAppSelector((state: RootState) => {
-        return !!state.authReducer.id
+        return !!state.authReducer.auth.id
     })
 
     return (

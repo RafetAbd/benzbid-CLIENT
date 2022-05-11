@@ -2,14 +2,14 @@ import * as React from "react";
 // import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { logout } from "../store/auth";
-import { useAppDispatch, useAppSelector } from "../store";
+import { useAppDispatch, useAppSelector, RootState } from "../store";
 // import { useDispatch } from "react-redux";
 
 
 const Navbar: React.FC = () => {
 
-    const isLoggedIn = useAppSelector((state) => {
-        return !!state.authReducer.id
+    const isLoggedIn = useAppSelector((state: RootState) => {
+        return !!state.authReducer.auth.id
     })
 
     const dispatch = useAppDispatch();
