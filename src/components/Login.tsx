@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { authenticate, clearError } from "../store/auth";
-import { useAppDispatch, useAppSelector, RootState, AppDispatch } from "../store";
+import { useAppDispatch, useAppSelector, RootState } from "../store";
 
 const Login: React.FC = () => {
 
@@ -32,7 +32,7 @@ const Login: React.FC = () => {
          <div className="container">
             <h1>Login</h1>
             {error && <p className="error">{error}</p>}
-            {err.name && <p className="error">{err.response.data.message}</p>}
+            {err && <p className="error">{err.response.data.message}</p>}
             {isAuthenticated && <p>You are logged in!</p>}
             <form onSubmit={handleSubmit}>
                  <label>Email</label>

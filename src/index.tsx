@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { store } from './store';
 import { Provider } from 'react-redux';
 import {BrowserRouter} from 'react-router-dom';
-import history from './history'
+// import history from './history'
 import io from 'socket.io-client';
 // import './index.css';
 import App from './App';
