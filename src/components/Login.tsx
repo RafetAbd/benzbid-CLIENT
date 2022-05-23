@@ -28,7 +28,6 @@ const Login: React.FC = () => {
     }
 
     return (
-        
          <div className="container">
             <h1>Login</h1>
             {error && <p className="error">{error}</p>}

@@ -20,8 +20,8 @@ const AllRoutes: React.FC = () => {
                 </Routes>
             ) : (
                 <Routes>
-                    <Route path="/login" caseSensitive={false} element={<Login />} />
-                    <Route path="/signup" caseSensitive={false} element={<Signup />} />
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/signup" element={<Signup />} />
                     <Route path="/" element={<Home />} />
                 </Routes>
             )    
